@@ -1,10 +1,10 @@
 const express = require('express');
-const monggoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const app = express();
 
-monggoose.connection.openUri(
-  'mongodb://localhost:27017/hospitalDB',
+mongoose.connection.openUri(
+  'mongodb://localhost:27017/{your_db_name_here}',
   (err, res) => {
     if (err) throw err;
 
