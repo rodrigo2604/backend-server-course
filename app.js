@@ -4,15 +4,21 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const appRoutes = require('./routes');
 const userRoutes = require('./routes/user');
+const doctorRoutes = require('./routes/doctor');
+const hospitalRoutes = require('./routes/hospital');
 const loginRoutes = require('./routes/login');
+const searchRoutes = require('./routes/search');
+const appRoutes = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/user', userRoutes);
+app.use('/doctor', doctorRoutes);
+app.use('/hospital', hospitalRoutes);
 app.use('/login', loginRoutes);
+app.use('/search', searchRoutes);
 app.use('/', appRoutes);
 
 mongoose.connection.openUri(

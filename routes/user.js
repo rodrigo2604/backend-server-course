@@ -9,20 +9,36 @@ const app = express();
 const User = require('../models/user');
 
 app.get('/', (req, res) => {
-  User.find({}, 'name email img role').exec((err, users) => {
-    if (err) {
-      return res.status(500).json({
-        ok: false,
-        mensaje: 'Error on load users',
-        errors: err,
-      });
-    }
+  const offset = Number(req.query.offset) || 0;
 
-    res.status(200).json({
-      ok: true,
-      users,
+  User.find({}, 'name email img role')
+    .skip(offset)
+    .limit(5)
+    .exec((err, users) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          mensaje: 'Error on load users',
+          errors: err,
+        });
+      }
+
+      User.count({}, (err, count) => {
+        if (err) {
+          return res.status(500).json({
+            ok: false,
+            mensaje: 'Error on load users',
+            errors: err,
+          });
+        }
+
+        return res.status(200).json({
+          ok: true,
+          count,
+          users,
+        });
+      });
     });
-  });
 });
 
 app.post('/', mdAuth.checkToken, (req, res) => {
