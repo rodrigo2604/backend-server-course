@@ -9,6 +9,8 @@ const doctorRoutes = require('./routes/doctor');
 const hospitalRoutes = require('./routes/hospital');
 const loginRoutes = require('./routes/login');
 const searchRoutes = require('./routes/search');
+const uploadRoutes = require('./routes/upload');
+const imageRoutes = require('./routes/image');
 const appRoutes = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,6 +21,8 @@ app.use('/doctor', doctorRoutes);
 app.use('/hospital', hospitalRoutes);
 app.use('/login', loginRoutes);
 app.use('/search', searchRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/image', imageRoutes);
 app.use('/', appRoutes);
 
 mongoose.connection.openUri(
